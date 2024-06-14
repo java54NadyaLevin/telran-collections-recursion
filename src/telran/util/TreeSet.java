@@ -250,8 +250,14 @@ private static final int DEFAULT_SPACES_PER_LEVEL = 2;
 	 *  or null if there is no such element
 	 */
 	public T ceiling(T key) {
-		// TODO Auto-generated method stub
-		return null;
+		T res = null;
+		if(comp.compare(key, first()) < 0) {
+			res = first();
+		}
+		if(comp.compare(key, last()) < 0) {
+			res = getParentOrNode(key).data;
+		}
+		return res;
 	}
 	/**
 	 * display tree in the following form:

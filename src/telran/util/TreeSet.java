@@ -273,10 +273,10 @@ public class TreeSet<T> extends AbstractCollection<T> implements SortedSet<T> {
 	private T findLeastNode(T key) {
 		T res = null;
 		Node<T> parent = getParentOrNode(key);
-		if(comp.compare(key, parent.data) >= 0) {
+		if (comp.compare(key, parent.data) >= 0) {
 			res = parent.data;
-		}else {
-			while(parent != null && comp.compare(key, parent.data) < 0) {
+		} else {
+			while (parent != null && comp.compare(key, parent.data) < 0) {
 				parent = parent.parent;
 			}
 		}
@@ -313,18 +313,26 @@ public class TreeSet<T> extends AbstractCollection<T> implements SortedSet<T> {
 
 	private void displayRootChildren(Node<T> tmpRoot, int level) {
 		if (tmpRoot != null) {
-			displayRoot(tmpRoot, 0);
+			displayRoot(tmpRoot, level);
 			displayRootChildren(tmpRoot.left, level + 1);
 			displayRootChildren(tmpRoot.right, level + 1);
 		}
 	}
-
 
 	/*****************************************/
 	/**
 	 * conversion of tree so that iterating has been in the inversive order
 	 */
 	public void treeInversion() {
+
+		TreeSet<T> reversedSet = new TreeSet<>((Comparator<T>) Comparator.reverseOrder());
+		for (T num : this) {
+			reversedSet.add(num);
+			remove(num);
+		}
+		root = reversedSet.root;
+		comp = reversedSet.comp;
+		size = reversedSet.size;
 	}
 
 	/**
@@ -345,12 +353,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements SortedSet<T> {
 
 	private void displayRoot(Node<T> tmpRoot, int level) {
 		System.out.printf("%s", " ".repeat(level * spacesPerLevel));
-		if(level == 0) {
-			System.out.print(tmpRoot.data + " ");
-		}else{
-			System.out.println(tmpRoot.data);
-		}
-
+		System.out.println(tmpRoot.data);
 	}
 
 	/**

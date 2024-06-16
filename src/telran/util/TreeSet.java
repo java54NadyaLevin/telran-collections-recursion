@@ -111,15 +111,6 @@ public class TreeSet<T> extends AbstractCollection<T> implements SortedSet<T> {
 		return parent;
 	}
 
-	private Node<T> getFirstLeastParent(Node<T> current) {
-		Node<T> parent = current.parent;
-		while (parent != null && parent.left == current) {
-			current = current.parent;
-			parent = current.parent;
-		}
-		return parent;
-	}
-
 	private Node<T> getLeastFrom(Node<T> node) {
 		if (node != null) {
 
@@ -295,9 +286,6 @@ public class TreeSet<T> extends AbstractCollection<T> implements SortedSet<T> {
 		}
 		T res = null;
 
-		if (comp.compare(key, first()) < 0) {
-			res = first();
-		}
 		if (comp.compare(key, last()) < 0) {
 			res = getParentOrNode(key).data;
 		}
@@ -334,6 +322,8 @@ public class TreeSet<T> extends AbstractCollection<T> implements SortedSet<T> {
 		comp = reversedSet.comp;
 		size = reversedSet.size;
 	}
+
+
 
 	/**
 	 * displays tree in the following form 100 10 1 -5 -20
